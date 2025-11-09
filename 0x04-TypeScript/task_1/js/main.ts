@@ -18,3 +18,19 @@ export const teacher3: Teacher = {
 };
 
 console.log(teacher3);
+
+// Directors interface extends Teacher and adds numberOfReports
+export interface Directors extends Teacher {
+    numberOfReports: number;
+}
+
+// Example director object
+export const director1: Directors = {
+    firstName: 'John',
+    lastName: 'Doe',
+    location: 'London',
+    fullTimeEmployee: true,
+    numberOfReports: 17,
+};
+
+console.log(director1);
