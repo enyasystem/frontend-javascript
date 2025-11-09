@@ -1,6 +1,6 @@
 //Define the Teacher interface
-interface Teacher {
-    readonly firstName : string; // readonly - can't change after initialiazation
+export interface Teacher {
+    readonly firstName: string; // readonly - can't change after initialization
     readonly lastName: string; // same here also
     fullTimeEmployee: boolean; //must always exist
     yearsOfExperience?: number; // Optional
@@ -9,7 +9,7 @@ interface Teacher {
 }
 
 //Example object using the interface
-const teacher3: Teacher = {
+export const teacher3: Teacher = {
     firstName: 'Bernard',
     fullTimeEmployee: false,
     lastName: 'Igiri',
