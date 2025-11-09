@@ -34,3 +34,17 @@ export const director1: Directors = {
 };
 
 console.log(director1);
+
+// Function type for printing teacher name
+export interface printTeacherFunction {
+    (firstName: string, lastName: string): string;
+}
+
+// Implementation of printTeacher
+export const printTeacher: printTeacherFunction = (
+    firstName: string,
+    lastName: string
+): string => `${firstName.charAt(0)}. ${lastName}`;
+
+// Example usage
+console.log(printTeacher('John', 'Doe'));
