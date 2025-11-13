@@ -1,4 +1,3 @@
-
 export interface Teacher {
   readonly firstName: string;
   readonly lastName: string;
@@ -6,36 +5,24 @@ export interface Teacher {
   yearsOfExperience?: number;
   location: string;
   [key: string]: any;
+
+  // teacher-specific method
+  workTeacherTasks(): string;
 }
 
 export interface Directors extends Teacher {
   numberOfReports: number;
+
+  // director-specific method
+  workDirectorTasks(): string;
 }
 
 export type Employee = Teacher | Directors;
 
-/* TODO: implement this type predicate */
 export function isDirector(employee: Employee): employee is Directors {
-  // implement: return true when employee is a Directors
-  // e.g. return 'numberOfReports' in employee;
-  return false;
+  return 'numberOfReports' in employee;
 }
 
-/* TODO: implement this to return and log "Getting to director tasks" */
-export function workDirectorTasks(): string {
-  const msg = 'Getting to director tasks';
-  console.log(msg);
-  return msg;
-}
-
-/* TODO: implement this to return and log "Getting to work" */
-export function workTeacherTasks(): string {
-  const msg = 'Getting to work';
-  console.log(msg);
-  return msg;
-}
-
-/* TODO: implement createEmployee to return Directors when salary >= 1000, otherwise Teacher */
 export function createEmployee(salary: number): Employee {
   if (salary >= 1000) {
     const director: Directors = {
@@ -44,6 +31,17 @@ export function createEmployee(salary: number): Employee {
       location: 'Head Office',
       fullTimeEmployee: true,
       numberOfReports: 1,
+      workDirectorTasks(): string {
+        const msg = 'Getting to director tasks';
+        console.log(msg);
+        return msg;
+      },
+      // Directors inherit Teacher shape, but teacher method can be optional or a no-op
+      workTeacherTasks(): string {
+        const msg = 'Getting to work';
+        console.log(msg);
+        return msg;
+      },
     };
     return director;
   }
@@ -53,19 +51,23 @@ export function createEmployee(salary: number): Employee {
     lastName: 'Person',
     location: 'Local Office',
     fullTimeEmployee: true,
+    workTeacherTasks(): string {
+      const msg = 'Getting to work';
+      console.log(msg);
+      return msg;
+    },
   };
   return teacher;
 }
 
-/* TODO: implement executeWork to call the correct task function */
-export function executeWork(employee: Employee): void {
+export function executeWork(employee: Employee): string {
   if (isDirector(employee)) {
-    workDirectorTasks();
+    return employee.workDirectorTasks();
   } else {
-    workTeacherTasks();
+    return employee.workTeacherTasks();
   }
 }
 
-/* Example calls - you can remove or replace these when testing */
+/* Example calls */
 executeWork(createEmployee(200));   // expected: Getting to work
 executeWork(createEmployee(1000));  // expected: Getting to director tasks
